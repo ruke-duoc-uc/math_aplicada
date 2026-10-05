@@ -61,6 +61,7 @@ def calculo_con_lista(porcentajes_materia):
     total = 0
     lista_nota = []
     lista_porcentajes = porcentajes_materia
+    presentacion_parciales = 0
     try:
         lista_nota = ingresar_nota("lista_notas",lista_porcentajes)
     except ValueError:
@@ -68,24 +69,21 @@ def calculo_con_lista(porcentajes_materia):
 # Transversal (40 porciento)
     while True:
         try:
-            nota_transversal = int(input(f"Ingrese la nota\n: (0.40)%"))
+            nota_transversal = int(input(f"Ingrese la nota (0.40%)\n: "))
             break
         except ValueError:
             print("Ingrese un valor valido (entero)")
     for i in range(len(lista_porcentajes)):
-        nota_vuelta =(lista_nota[i])
+        nota_vuelta =lista_nota[i]
         total = total+nota_vuelta
-        print(f"Valor de la nota: {nota_vuelta}")
-    total = total + nota_transversal*0.4
-    print(f"Nota final: {total}")
-    print(f"Notas en orden: {lista_nota}")
-    print(f"Porcentajes en orden: {lista_porcentajes}")
-    print(f"Parcial: {nota_transversal}")
-    for i in range(len(lista_nota)):
-        nota_parciales = nota_parciales = lista_nota[i]
-        print(lista_nota[i])
-
-
+        presentacion_parciales = presentacion_parciales + lista_nota[i]
+        print(f"Valor de la nota: {round(nota_vuelta)}")
+    total = (total*0.6) + nota_transversal*0.4
+    if total > 70:
+        total == 70
+    print(f"Presentacion parciales (60%): {round(presentacion_parciales)}")
+    print(f"Transversal (40%): {round(nota_transversal*0.4)}")
+    print(f"Nota final: {round(total)}")
 def opcion_1():
     while True:
         try:
@@ -104,7 +102,7 @@ while programa == True:
     print("4) Por materia")
     print("5) Salir")
     try:
-        seleccion = input("Eliga una opcion\n:")
+        seleccion = input("Eliga una opcion\n: ")
         if seleccion == "1":
             opcion_1()
         if seleccion == "4":
