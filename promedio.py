@@ -1,3 +1,30 @@
+def ingresar_nota(origen,porcentaje=None):
+    while True:
+        try:
+            if origen == "usuario":
+                nota = int(input(f"Ingrese la nota ({porcentaje}%)\n: "))
+                if 10 <= nota <= 70:
+                    return nota
+                print("La nota debe estar entre 10 y 70")
+            elif origen == "lista_notas":
+                lista_notas = []
+                for i in range(len(porcentaje)):
+                    while True:
+                        try:
+                            nota = int(input(f"Ingrese la nota ({porcentaje[i]}%)\n: "))
+                            if 10 <= nota <= 70:
+                                nota_vuelta = nota*porcentaje[i]
+                                lista_notas.append(nota_vuelta)
+                                print(f"Valor de la nota: {nota_vuelta}")
+                                break
+                            print("La nota debe estar entre 10 y 70")
+                        except ValueError:
+                            print("La nota debe ser un número entero")
+                return lista_notas
+        except ValueError:
+            print("Ingrese un valor valido (entero)")
+
+
 def calculo_manual(vueltas):
     total = 0
     lista_nota = []
@@ -9,15 +36,9 @@ def calculo_manual(vueltas):
                 break
             except ValueError:
                 print("Ingrese un porcentaje valido (entero)")
-        while True:
-            try:
-                nota = int(input(f"Ingrese la nota ({porcentaje}%)\n: "))
-                if 10 <= nota <= 70:
-                    break
-                print("La nota debe estar entre 10 y 70")
-            except ValueError:
-                print("Ingrese un valor valido (entero)")
-        print(f"Valor de la nota: {nota*(porcentaje/100)} ")
+            nota_vuelta = ingresar_nota() 
+            print(nota_vuelta)
+        print(f"Valor de la nota: {nota_vuelta*(porcentaje/100)} ")
         total = total+(nota*porcentaje)/100
         lista_nota.append(nota)
         lista_porcentajes.append(porcentaje)
@@ -34,6 +55,36 @@ def calculo_manual(vueltas):
     for i in range(len(lista_nota)):
         nota_parciales = nota_parciales = lista_nota[i]
         print(lista_nota[i])
+
+
+def calculo_con_lista(porcentajes_materia):
+    total = 0
+    lista_nota = []
+    lista_porcentajes = porcentajes_materia
+    try:
+        lista_nota = ingresar_nota("lista_notas",lista_porcentajes)
+    except ValueError:
+        print("a")
+    while True:
+        try:
+            nota_transversal = int(input(f"Ingrese la nota\n: "))
+            break
+        except ValueError:
+            print("Ingrese un valor valido (entero)")
+    for i in range(len(lista_porcentajes)):
+        nota_vuelta =(lista_nota[i]*lista_porcentajes[i])
+        total = total+nota_vuelta
+        print(f"Valor de la nota: {nota_vuelta}")
+    total = total + nota_transversal
+    print(f"Nota final: {total}")
+    print(f"Notas en orden: {lista_nota}")
+    print(f"Porcentajes en orden: {lista_porcentajes}")
+    print(f"Parcial: {nota_transversal}")
+    for i in range(len(lista_nota)):
+        nota_parciales = nota_parciales = lista_nota[i]
+        print(lista_nota[i])
+
+
 def opcion_1():
     while True:
         try:
@@ -42,7 +93,6 @@ def opcion_1():
         except ValueError:
             print("Ingrese un número entero")
     calculo_manual(cantidad_notas)
-    
 programa = True
 
 while programa == True:
@@ -50,12 +100,26 @@ while programa == True:
     print("1) Parciales y Transversal")
     print("2) Solo parciales")
     print("3) Solo Transversal")
-    print("4) Salir")
+    print("4) Por materia")
+    print("5) Salir")
     try:
         seleccion = input("Eliga una opcion\n:")
         if seleccion == "1":
             opcion_1()
-        elif seleccion == "4":
+        if seleccion == "4":
+            try:
+                print("Matematica Aplicada")
+                print("Taller de base de datos")
+                print("Desarrollo Fullstack II")
+                print("Desarrollo de aplicaciones moviles")
+                materia = input("Eliga una materia")
+                origen = "lista_notas"
+                matematicas = [0.1,0.1,0.35,0.1,0.35]
+                if materia == "1":
+                    calculo_con_lista(matematicas)
+            except Exception as e:
+                print(f"Ingrese una opción valida (numero)\n{e}")                
+        elif seleccion == "5":
             print("-----PROGRAMA FINALIZADO-----")
             programa = False
     except Exception as e:
