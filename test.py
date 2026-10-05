@@ -1,21 +1,21 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
-def s(x):
-    return -1.6*x**2+1.3*x+141.3
-def r(x):
-    return 1.4*x**2-5.6*x+12.6
-
-t = np.linspace(-6,8, 200)
-y = s(t)
-
-t2 = np.linspace(-6, 8, 200)
-y2 = r(t2)
-
-plt.plot(t, y, color="blue", linewidth=2, label="f(t)")
-plt.plot(t2, y2, color="blue", linewidth=2, label="f(t)")
-for i in range(-10,10):
-    print(f"Numero {i}")
-    print(f"s(i){s(i)}")
-    print(f"r(i){r(i)}")
-plt.show()
+def ingreso_porcentaje():
+    while True:
+        try:
+            porcentaje = int(input(f"Ingrese el porcentaje\n: "))
+            return porcentaje
+        except ValueError:
+            print("Ingrese un porcentaje valido (entero)")
+def calculo_manual(vueltas):
+    total = 0
+    lista_nota = []
+    lista_porcentajes = []
+    for i in range(vueltas):
+        lista_porcentajes.append(ingreso_porcentaje())
+    print(lista_porcentajes)
+while True:
+    try:
+        cantidad_notas = int(input("Ingrese la cantidad de parciales\n: "))
+        break
+    except ValueError:
+        print("Ingrese un número entero")
+calculo_manual(cantidad_notas)

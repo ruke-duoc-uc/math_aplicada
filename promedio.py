@@ -1,18 +1,48 @@
-def ponderar(nota,porcentaje):
-    return print(f"Valor de la nota{(nota*porcentaje)/100} ")
-
-def programa_completo():
-    cantidad_notas = int(input("Ingrese la cantidad de parciales\n:"))
-    for i in range(cantidad_notas):
+def calculo_manual(vueltas):
+    total = 0
+    lista_nota = []
+    lista_porcentajes = []
+    for i in range(vueltas):
+        while True:
+            try:
+                porcentaje = int(input(f"Ingrese el porcentaje\n: "))
+                break
+            except ValueError:
+                print("Ingrese un porcentaje valido (entero)")
+        while True:
+            try:
+                nota = int(input(f"Ingrese la nota ({porcentaje}%)\n: "))
+                if 10 <= nota <= 70:
+                    break
+                print("La nota debe estar entre 10 y 70")
+            except ValueError:
+                print("Ingrese un valor valido (entero)")
+        print(f"Valor de la nota: {nota*(porcentaje/100)} ")
+        total = total+(nota*porcentaje)/100
+        lista_nota.append(nota)
+        lista_porcentajes.append(porcentaje)
+    while True:
         try:
-            porcentaje = int(input(f"Ingrese el porcentaje"))
-        except:
+            nota_transversal = int(input(f"Ingrese la nota\n: "))
+            break
+        except ValueError:
             print("Ingrese un valor valido (entero)")
+    print(f"Nota final: {total+(nota_transversal*0.40)}")
+    print(f"Notas en orden: {lista_nota}")
+    print(f"Porcentajes en orden: {lista_porcentajes}")
+    print(f"Parcial: {nota_transversal}")
+    for i in range(len(lista_nota)):
+        nota_parciales = nota_parciales = lista_nota[i]
+        print(lista_nota[i])
+def opcion_1():
+    while True:
         try:
-            nota = int(input(f"Ingrese la nota"))
-        except:
-            print("Ingrese un valor valido (entero)")
-        ponderar(nota,porcentaje)
+            cantidad_notas = int(input("Ingrese la cantidad de parciales\n: "))
+            break
+        except ValueError:
+            print("Ingrese un número entero")
+    calculo_manual(cantidad_notas)
+    
 programa = True
 
 while programa == True:
@@ -21,11 +51,12 @@ while programa == True:
     print("2) Solo parciales")
     print("3) Solo Transversal")
     print("4) Salir")
-    seleccion = input("Eliga una opcion\n:")
-    if seleccion == "1":
-        programa_completo()
-    elif seleccion == "4":
-        print("-----PROGRAMA FINALIZADO-----")
-        programa = False
-    else:
-        print("Ingrese el numero de la opción que quiera")
+    try:
+        seleccion = input("Eliga una opcion\n:")
+        if seleccion == "1":
+            opcion_1()
+        elif seleccion == "4":
+            print("-----PROGRAMA FINALIZADO-----")
+            programa = False
+    except Exception as e:
+        print(f"Ingrese una opción valida (numero)\n{e}")
