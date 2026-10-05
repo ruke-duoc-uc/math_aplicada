@@ -36,7 +36,7 @@ def calculo_manual(vueltas):
                 break
             except ValueError:
                 print("Ingrese un porcentaje valido (entero)")
-            nota_vuelta = ingresar_nota() 
+            nota_vuelta = ingresar_nota("usuario",porcentaje) 
             print(nota_vuelta)
         print(f"Valor de la nota: {nota_vuelta*(porcentaje/100)} ")
         total = total+(nota*porcentaje)/100
@@ -65,17 +65,18 @@ def calculo_con_lista(porcentajes_materia):
         lista_nota = ingresar_nota("lista_notas",lista_porcentajes)
     except ValueError:
         print("a")
+# Transversal (40 porciento)
     while True:
         try:
-            nota_transversal = int(input(f"Ingrese la nota\n: "))
+            nota_transversal = int(input(f"Ingrese la nota\n: (0.40)%"))
             break
         except ValueError:
             print("Ingrese un valor valido (entero)")
     for i in range(len(lista_porcentajes)):
-        nota_vuelta =(lista_nota[i]*lista_porcentajes[i])
+        nota_vuelta =(lista_nota[i])
         total = total+nota_vuelta
         print(f"Valor de la nota: {nota_vuelta}")
-    total = total + nota_transversal
+    total = total + nota_transversal*0.4
     print(f"Nota final: {total}")
     print(f"Notas en orden: {lista_nota}")
     print(f"Porcentajes en orden: {lista_porcentajes}")
@@ -88,7 +89,7 @@ def calculo_con_lista(porcentajes_materia):
 def opcion_1():
     while True:
         try:
-            cantidad_notas = int(input("Ingrese la cantidad de parciales\n: "))
+            cantidad_notas = int(input("Ingrese la cantidad de parciales\n:"))
             break
         except ValueError:
             print("Ingrese un número entero")
